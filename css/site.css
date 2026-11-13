@@ -254,6 +254,15 @@ td strong { color: var(--text); }
 
 .video { margin-top: 1.2rem; }
 
+.video:not(:has(iframe)) {
+  display: grid;
+  place-items: center;
+  min-height: 8rem;
+  border: 1px dashed var(--line);
+  border-radius: 16px;
+  background: #000;
+}
+
 .video + .video { margin-top: 1rem; }
 
 .video iframe {

@@ -41,15 +41,26 @@
     <div class="wrap">
       <p class="kicker" data-i18n="mcp.kicker">Fase 3</p>
       <h1 data-i18n="mcp.title">Instalación de los MCPs.</h1>
-      <p class="lede" data-i18n="mcp.lede">Audit Orchestrator recorre la auditoría. Kali, en Docker, ejecuta las comprobaciones. Los dos se instalan como MCP del agente. El script de esta fase todavía no está.</p>
-      <div class="video" data-video="mcps" data-i18n-title="video.soon">
-        <p class="note" data-video-empty data-i18n="video.soon">El vídeo de esta fase se añadirá aquí.</p>
-      </div>
-      <h2 data-i18n="code.title">Instalación</h2>
+      <p class="lede" data-i18n="mcp.lede">El producto es MVP Audit Orchestrator V2. Esta instalación añade dos MCP al agente.</p>
+      <p class="note"><a href="https://github.com/agentef0ns1/MVP-audit-orchetrator-v2" target="_blank" rel="noopener noreferrer">https://github.com/agentef0ns1/MVP-audit-orchetrator-v2.git</a></p>
+
+      <h2 data-i18n="mcp.clone">Descarga</h2>
+      <p class="note" data-i18n="mcp.clone.body">En un entorno limpio, el repositorio se descarga así.</p>
+      <pre class="code"><code>git clone https://github.com/agentef0ns1/MVP-audit-orchetrator-v2.git
+cd MVP-audit-orchetrator-v2</code></pre>
+
+      <h2 data-i18n="mcp.install">Instalación</h2>
+      <p class="note" data-i18n="mcp.install.body">La instalación sigue el README del repositorio. Hace falta Python 3.11 o superior y Docker Compose v2. ./setup.sh crea el entorno, la imagen de Kali, las bases del orquestador y la configuración de los dos MCP.</p>
       <div class="actions">
-        <a class="btn" href="https://www.youtube.com/@xiquifonso" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a class="btn solid" data-i18n="mcp.readme" href="https://github.com/agentef0ns1/MVP-audit-orchetrator-v2/blob/main/README.md" target="_blank" rel="noopener noreferrer">README</a>
       </div>
-      <pre class="code"><code data-i18n="code.pending">El script de esta fase se añadirá aquí.</code></pre>
+      <pre class="code"><code>./setup.sh</code></pre>
+
+      <h2 data-i18n="mcp.pair">Los dos MCP</h2>
+      <h3 data-i18n="mcp.orch">Orchestrator</h3>
+      <p class="note" data-i18n="mcp.orch.body">Cuenta con dos bases de datos: una relacional, SQLite, y otra no relacional, Neo4j.</p>
+      <h3 data-i18n="mcp.kali">Atacante</h3>
+      <p class="note" data-i18n="mcp.kali.body">Imagen Docker de Kali, con una cola de ejecución. Los comandos corren en segundo plano.</p>
     </div>
   </main>
   <footer id="contact">

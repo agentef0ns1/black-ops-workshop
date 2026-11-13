@@ -41,15 +41,51 @@
     <div class="wrap">
       <p class="kicker" data-i18n="agent.kicker">Fase 2</p>
       <h1 data-i18n="agent.title">Instalación de los agentes.</h1>
-      <p class="lede" data-i18n="agent.lede">Conversación con el modelo local. Cline dentro de Visual Studio Code, o la terminal con cline-cli, OpenClaw o Codex. La instalación de esta fase todavía no está en la página.</p>
-      <div class="video" data-video="agent" data-i18n-title="video.soon">
-        <p class="note" data-video-empty data-i18n="video.soon">El vídeo de esta fase se añadirá aquí.</p>
-      </div>
-      <h2 data-i18n="code.title">Instalación</h2>
+      <p class="lede" data-i18n="agent.lede">Fase de instalación del agente. El objetivo es un agente conectado al LLM, con ejecución en el sistema operativo, interacción con los MCPs, y lectura y escritura del sistema de ficheros.</p>
+      <p class="note" data-i18n="agent.options">El producto admite varias opciones. Unas cuantas ya están probadas y quedan aquí como ejemplo.</p>
+      <p class="note" data-i18n="agent.from">El instalador está en cli/install del repositorio. Se lanza desde esa carpeta. LOCALAI_URL es la de esta máquina, http://127.0.0.1:8080.</p>
+
+      <h2 data-i18n="agent.gui">Interfaz gráfica</h2>
+      <h3 data-i18n="agent.vscode">Visual Studio Code + Cline</h3>
+      <p class="note" data-i18n="agent.vscode.body">Extensión del editor. Habla con LocalAI por la API de chat. El instalador escribe el proveedor; la extensión se instala en el editor.</p>
       <div class="actions">
-        <a class="btn" href="https://www.youtube.com/@xiquifonso" target="_blank" rel="noopener noreferrer">YouTube</a>
+        <a class="btn solid" href="https://github.com/agentef0ns1/MVP-audit-orchetrator-v2/blob/main/cli/install/install-cline.sh" target="_blank" rel="noopener noreferrer">install-cline.sh</a>
       </div>
-      <pre class="code"><code data-i18n="code.pending">El script de esta fase se añadirá aquí.</code></pre>
+      <pre class="code"><code data-script="scripts/install-cline.sh"></code></pre>
+
+      <h2 data-i18n="agent.cli">Línea de comandos</h2>
+      <h3 data-i18n="agent.cline">cline-cli</h3>
+      <p class="note" data-i18n="agent.cline.body">Paquete cline 3.0.46. Habla con LocalAI por la API de chat. El estado queda en su propio prefijo.</p>
+      <p class="note"><a href="https://youtu.be/Ov686-ELPjY" target="_blank" rel="noopener noreferrer">https://youtu.be/Ov686-ELPjY</a></p>
+      <div class="video" data-video="clinecli" data-i18n-title="agent.cline">
+        <p class="note" data-video-empty data-i18n="agent.video">El vídeo de instalación se añadirá aquí.</p>
+      </div>
+      <div class="actions">
+        <a class="btn solid" href="https://github.com/agentef0ns1/MVP-audit-orchetrator-v2/blob/main/cli/install/install-cline-cli.sh" target="_blank" rel="noopener noreferrer">install-cline-cli.sh</a>
+      </div>
+      <pre class="code"><code data-script="scripts/install-cline-cli.sh"></code></pre>
+
+      <h3 data-i18n="agent.openclaw">OpenClaw</h3>
+      <p class="note" data-i18n="agent.openclaw.body">Paquete openclaw. El modelo va por openai-completions, directo a LocalAI.</p>
+      <p class="note"><a href="https://youtu.be/AhdAUDCG5og" target="_blank" rel="noopener noreferrer">https://youtu.be/AhdAUDCG5og</a></p>
+      <div class="video" data-video="openclaw" data-i18n-title="agent.openclaw">
+        <p class="note" data-video-empty data-i18n="agent.video">El vídeo de instalación se añadirá aquí.</p>
+      </div>
+      <div class="actions">
+        <a class="btn solid" href="https://github.com/agentef0ns1/MVP-audit-orchetrator-v2/blob/main/cli/install/install-openclaw.sh" target="_blank" rel="noopener noreferrer">install-openclaw.sh</a>
+      </div>
+      <pre class="code"><code data-script="scripts/install-openclaw.sh"></code></pre>
+
+      <h3 data-i18n="agent.codex">Codex</h3>
+      <p class="note" data-i18n="agent.codex.body">Paquete @openai/codex. Con LocalAI usa un proxy en 127.0.0.1:8082 que aplana las tools MCP de la API Responses.</p>
+      <p class="note"><a href="https://youtu.be/Vbz_slstTE0" target="_blank" rel="noopener noreferrer">https://youtu.be/Vbz_slstTE0</a></p>
+      <div class="video" data-video="codex" data-i18n-title="agent.codex">
+        <p class="note" data-video-empty data-i18n="agent.video">El vídeo de instalación se añadirá aquí.</p>
+      </div>
+      <div class="actions">
+        <a class="btn solid" href="https://github.com/agentef0ns1/MVP-audit-orchetrator-v2/blob/main/cli/install/install-codex.sh" target="_blank" rel="noopener noreferrer">install-codex.sh</a>
+      </div>
+      <pre class="code"><code data-script="scripts/install-codex.sh"></code></pre>
     </div>
   </main>
   <footer id="contact">
