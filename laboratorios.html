@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workshop [black-ops]</title>
+  <meta name="description" content="Un workshop para montar [black-ops] en un portátil modesto: LocalAI, agentes, MCPs, una primera ejecución y una mirada a las métricas.">
+  <link rel="icon" href="assets/logo-hydra.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <a class="skip" href="#contenido" data-i18n="skip">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="wrap header-bar">
+      <div class="header-start">
+        <div class="versions" role="group" data-i18n-aria="lang.aria" aria-label="Idioma">
+          <button type="button" data-set-lang="es" lang="es">ES</button>
+          <button type="button" data-set-lang="en" lang="en">EN</button>
+        </div>
+        <a class="brand" href="index.html">
+          <img src="assets/logo-hydra.jpg" data-i18n-alt="brand.alt" alt="Marca de la hidra de tres cabezas">
+          <span>
+            <strong data-i18n="brand.name">Workshop</strong>
+            <span class="brand-tag" data-i18n="brand.tag">[black-ops]</span>
+          </span>
+        </a>
+      </div>
+      <nav class="nav" data-i18n-aria="nav.aria" aria-label="Workshop">
+        <a href="llm.html" data-i18n="nav.llm">Fase 1</a>
+        <a href="agente.html" data-i18n="nav.agent">Fase 2</a>
+        <a href="mcps.html" data-i18n="nav.mcp">Fase 3</a>
+        <a class="is-here" href="laboratorios.html" data-i18n="nav.lab">Fase 4</a>
+        <a href="qa.html" data-i18n="nav.qa">Fase 5</a>
+      </nav>
+    </div>
+  </header>
+  <main id="contenido">
+    <div class="wrap">
+      <p class="kicker" data-i18n="lab.kicker">Fase 4</p>
+      <h1 data-i18n="lab.title">Laboratorios y ejecuciones.</h1>
+      <p class="lede" data-i18n="lab.lede">Tres pasos en esta máquina de prueba: arranque del laboratorio, monitorización del entorno y una ejecución inicial de cada tipo.</p>
+
+      <h2 data-i18n="lab.setup">Configurar</h2>
+      <p class="note" data-i18n="lab.setup.body">Arranque de los laboratorios. El script setup_lab.sh está en el repositorio de black-ops, en lab/setup_lab.sh. Pregunta qué grupos levantar, asegura la red ipvlan y arranca solo esos perfiles.</p>
+      <div class="actions">
+        <a class="btn solid" data-i18n="lab.setup.file" href="https://github.com/agentef0ns1/MVP-audit-orchetrator-v2/blob/main/lab/setup_lab.sh" target="_blank" rel="noopener noreferrer">lab/setup_lab.sh</a>
+      </div>
+      <pre class="code"><code data-script="scripts/setup_lab.sh"></code></pre>
+
+      <h2 data-i18n="lab.monitor">Monitorizar</h2>
+      <p class="tag" data-i18n="lab.monitor.tag">Monitorizar el entorno</p>
+      <p class="note" data-i18n="lab.monitor.body">Monitorización del uso del laboratorio. Mira los recursos de la máquina y los contenedores Docker en ejecución.</p>
+      <div class="actions">
+        <a class="btn solid" href="scripts/monitor.sh" download>monitor.sh</a>
+      </div>
+      <pre class="code"><code data-script="scripts/monitor.sh"></code></pre>
+
+      <h2 data-i18n="lab.run">Ejecución inicial</h2>
+
+      <h3 data-i18n="lab.type1">Tipo 1</h3>
+      <p class="note" data-i18n="lab.type1.body">Recorre el grafo de cada puerto en Kali. No llama al modelo.</p>
+      <pre class="code"><code>audit_v2_start_and_run(
+  base_path="&lt;WORKSPACE&gt;",
+  execution_mode="type_1_no_llm",
+  audit_profile="fast",
+  nmap_file="open_ports.txt",
+  reset=true,
+  max_servers=10,
+  max_services=3,
+  max_kali_jobs=10
+)</code></pre>
+      <p class="note"><a href="https://www.youtube.com/watch?v=o0hzP2ID37M&amp;t=2s" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=o0hzP2ID37M&amp;t=2s</a></p>
+      <div class="video" data-video="mode1" data-i18n-title="video.mode1">
+        <p class="note" data-video-empty data-i18n="video.soon">El vídeo de esta fase se añadirá aquí.</p>
+      </div>
+
+      <h3 data-i18n="lab.type2">Tipo 2</h3>
+      <p class="note" data-i18n="lab.type2.body">Hace el tipo 1. Cuando terminan los puertos de un host, el modelo revisa ese host.</p>
+      <pre class="code"><code>audit_v2_start_and_run(
+  base_path="&lt;WORKSPACE&gt;",
+  execution_mode="type_2_post_host_llm",
+  audit_profile="deep",
+  nmap_file="open_ports.txt",
+  reset=true,
+  max_servers=10,
+  max_services=3,
+  max_kali_jobs=10,
+  llm_model="&lt;MODEL_ID&gt;"
+)</code></pre>
+      <p class="note"><a href="https://www.youtube.com/watch?v=YZfLlv5Ei_Q&amp;t=2s" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=YZfLlv5Ei_Q&amp;t=2s</a></p>
+      <div class="video" data-video="mode2" data-i18n-title="video.mode2">
+        <p class="note" data-video-empty data-i18n="video.soon">El vídeo de esta fase se añadirá aquí.</p>
+      </div>
+
+      <h3 data-i18n="lab.type3">Tipo 3</h3>
+      <p class="note" data-i18n="lab.type3.body">Hace el tipo 1. Tras cada servicio el modelo puede devolver un comando. Al cerrar el host hace la misma revisión que el tipo 2.</p>
+      <pre class="code"><code>audit_v2_start_and_run(
+  base_path="&lt;WORKSPACE&gt;",
+  execution_mode="type_3_interactive_llm",
+  audit_profile="balanced",
+  nmap_file="open_ports.txt",
+  reset=true,
+  max_servers=5,
+  max_services=5,
+  max_kali_jobs=8,
+  llm_model="&lt;MODEL_ID&gt;"
+)</code></pre>
+      <p class="note" data-i18n="lab.video.soon">La URL de este vídeo aún no está disponible.</p>
+      <div class="video" data-video="mode3" data-i18n-title="video.mode3">
+        <p class="note" data-video-empty data-i18n="video.soon">El vídeo de esta fase se añadirá aquí.</p>
+      </div>
+    </div>
+  </main>
+  <footer id="contact">
+    <div class="wrap footer-grid">
+      <img src="assets/logo-hydra.jpg" alt="">
+      <div>
+        <p class="kicker" data-i18n="contact.kicker">Contacto</p>
+        <h2 data-i18n="contact.title">Escribe a f0ns1</h2>
+        <p class="note" data-i18n="contact.before">Si estás interesado en hacer tu PoC, tienes dudas montando tu entorno o quieres colaborar, contacta conmigo.</p>
+        <div class="contact-links">
+          <a class="mail" data-contact-email href="mailto:fonso.gonzalezsanz@gmail.com">fonso.gonzalezsanz@gmail.com</a>
+          <a class="mail" data-contact-linkedin data-i18n="contact.linkedin" href="https://es.linkedin.com/in/ildefonso-gonz%C3%A1lez-s%C3%A1nchez-0b693555" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="mail" href="https://huggingface.co/agentef0ns1" target="_blank" rel="noopener noreferrer">Hugging Face</a>
+          <a class="mail" href="https://github.com/agentef0ns1" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="mail" href="https://www.youtube.com/@xiquifonso" target="_blank" rel="noopener noreferrer">YouTube</a>
+        </div>
+      </div>
+      <p class="note"><span data-i18n="footer.brand">Workshop [black-ops]</span><br><span data-i18n="footer.tag">Montado en el equipo</span></p>
+    </div>
+  </footer>
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>

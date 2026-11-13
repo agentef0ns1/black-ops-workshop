@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Workshop [black-ops]</title>
+  <meta name="description" content="Un workshop para montar [black-ops] en un portátil modesto: LocalAI, agentes, MCPs, una primera ejecución y una mirada a las métricas.">
+  <link rel="icon" href="assets/logo-hydra.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <a class="skip" href="#contenido" data-i18n="skip">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="wrap header-bar">
+      <div class="header-start">
+        <div class="versions" role="group" data-i18n-aria="lang.aria" aria-label="Idioma">
+          <button type="button" data-set-lang="es" lang="es">ES</button>
+          <button type="button" data-set-lang="en" lang="en">EN</button>
+        </div>
+        <a class="brand" href="index.html">
+          <img src="assets/logo-hydra.jpg" data-i18n-alt="brand.alt" alt="Marca de la hidra de tres cabezas">
+          <span>
+            <strong data-i18n="brand.name">Workshop</strong>
+            <span class="brand-tag" data-i18n="brand.tag">[black-ops]</span>
+          </span>
+        </a>
+      </div>
+      <nav class="nav" data-i18n-aria="nav.aria" aria-label="Workshop">
+        <a href="llm.html" data-i18n="nav.llm">Fase 1</a>
+        <a href="agente.html" data-i18n="nav.agent">Fase 2</a>
+        <a href="mcps.html" data-i18n="nav.mcp">Fase 3</a>
+        <a href="laboratorios.html" data-i18n="nav.lab">Fase 4</a>
+        <a href="qa.html" data-i18n="nav.qa">Fase 5</a>
+      </nav>
+    </div>
+  </header>
+  <main id="contenido">
+    <div class="wrap">
+      <p class="kicker" data-i18n="home.kicker">Tu máquina de prueba</p>
+      <h1 data-i18n="home.title">Esto funciona en un portátil modesto.</h1>
+      <p class="lede" data-i18n="home.lede">No hace falta un servidor. Montado en esta máquina de prueba: una gráfica de 4 GB y 15 GB de RAM. Si la máquina se parece, el workshop va. El sistema es Ubuntu 26.04.1 LTS.</p>
+      <h2 data-i18n="home.table">Hardware del portátil modesto</h2>
+      <div class="table-wrap">
+        <table class="specs">
+          <thead>
+            <tr>
+              <th data-i18n="spec.part">Pieza</th>
+              <th data-i18n="spec.value">Lo que tiene</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-i18n="spec.os" data-i18n-label="spec.os">Sistema</td>
+              <td data-i18n="spec.os.v" data-i18n-label="spec.value">Ubuntu 26.04.1 LTS (Resolute Raccoon)</td>
+            </tr>
+            <tr>
+              <td data-i18n="spec.cpu" data-i18n-label="spec.cpu">CPU</td>
+              <td data-i18n="spec.cpu.v" data-i18n-label="spec.value">Intel Core i7-10750H a 2,60 GHz, 6 núcleos y 12 hilos, hasta 5,0 GHz</td>
+            </tr>
+            <tr>
+              <td data-i18n="spec.ram" data-i18n-label="spec.ram">Memoria</td>
+              <td data-i18n="spec.ram.v" data-i18n-label="spec.value">15 GB, más 4 GB de swap</td>
+            </tr>
+            <tr>
+              <td data-i18n="spec.gpu" data-i18n-label="spec.gpu">GPU</td>
+              <td data-i18n="spec.gpu.v" data-i18n-label="spec.value">NVIDIA GeForce GTX 1650, 4 GB, driver 595.99.02, CUDA 13.2, tope de 35 W</td>
+            </tr>
+            <tr>
+              <td data-i18n="spec.disk" data-i18n-label="spec.disk">Disco</td>
+              <td data-i18n="spec.disk.v" data-i18n-label="spec.value">NVMe de 477 GB. En la raíz quedan 46 GB libres.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 data-i18n="home.map">Cinco fases</h2>
+      <div class="grid lessons">
+        <a class="card" href="llm.html">
+          <p class="num">01</p>
+          <h3 data-i18n="card.llm">Fase 1 · LocalAI</h3>
+          <p data-i18n="card.llm.body">Instalación del motor y de un modelo que cabe en la gráfica.</p>
+        </a>
+        <a class="card" href="agente.html">
+          <p class="num">02</p>
+          <h3 data-i18n="card.agent">Fase 2 · Agentes</h3>
+          <p data-i18n="card.agent.body">Cline en Visual Studio Code, o una CLI: cline-cli, OpenClaw o Codex.</p>
+        </a>
+        <a class="card" href="mcps.html">
+          <p class="num">03</p>
+          <h3 data-i18n="card.mcp">Fase 3 · MCPs</h3>
+          <p data-i18n="card.mcp.body">Audit Orchestrator y Kali.</p>
+        </a>
+        <a class="card" href="laboratorios.html">
+          <p class="num">04</p>
+          <h3 data-i18n="card.lab">Fase 4 · Laboratorios</h3>
+          <p data-i18n="card.lab.body">Arranque del laboratorio, monitorización y tres tipos de ejecución.</p>
+        </a>
+        <a class="card" href="qa.html">
+          <p class="num">05</p>
+          <h3 data-i18n="card.qa">Fase 5 · QA</h3>
+          <p data-i18n="card.qa.body">Revisión de las métricas de la ejecución. Aún no hay nada colgado.</p>
+        </a>
+      </div>
+    </div>
+  </main>
+  <footer id="contact">
+    <div class="wrap footer-grid">
+      <img src="assets/logo-hydra.jpg" alt="">
+      <div>
+        <p class="kicker" data-i18n="contact.kicker">Contacto</p>
+        <h2 data-i18n="contact.title">Escribe a f0ns1</h2>
+        <p class="note" data-i18n="contact.before">Si estás interesado en hacer tu PoC, tienes dudas montando tu entorno o quieres colaborar, contacta conmigo.</p>
+        <div class="contact-links">
+          <a class="mail" data-contact-email href="mailto:fonso.gonzalezsanz@gmail.com">fonso.gonzalezsanz@gmail.com</a>
+          <a class="mail" data-contact-linkedin data-i18n="contact.linkedin" href="https://es.linkedin.com/in/ildefonso-gonz%C3%A1lez-s%C3%A1nchez-0b693555" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="mail" href="https://huggingface.co/agentef0ns1" target="_blank" rel="noopener noreferrer">Hugging Face</a>
+          <a class="mail" href="https://github.com/agentef0ns1" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="mail" href="https://www.youtube.com/@xiquifonso" target="_blank" rel="noopener noreferrer">YouTube</a>
+        </div>
+      </div>
+      <p class="note"><span data-i18n="footer.brand">Workshop [black-ops]</span><br><span data-i18n="footer.tag">Montado en el equipo</span></p>
+    </div>
+  </footer>
+  <script src="js/config.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>
