@@ -13,7 +13,7 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header) + 0.75rem); }
 
 body {
   margin: 0;
@@ -198,7 +198,7 @@ h2 {
   background-position: left bottom;
 }
 
-h3 { font-size: 1.05rem; }
+h3 { font-size: 1.05rem; margin-top: 1.35rem; }
 
 .lede { color: var(--muted); font-size: 1.08rem; max-width: 42rem; }
 
@@ -247,6 +247,38 @@ th {
 td { color: var(--muted); }
 
 td strong { color: var(--text); }
+
+.flow {
+  width: 100%;
+  margin: 1rem 0 0;
+  background: #000;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.flow img { width: 100%; height: auto; }
+
+.flow.term {
+  width: 100%;
+  padding: 0.7rem 0.85rem 0;
+}
+
+.flow.term .shot { overflow-x: auto; }
+
+.flow.term img {
+  width: auto;
+  max-width: none;
+  height: auto;
+  display: block;
+}
+
+.flow figcaption {
+  margin: 0;
+  padding: 0.85rem 1rem 1rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
 
 .note { color: var(--muted); font-size: 0.92rem; }
 
@@ -350,24 +382,28 @@ footer h2 { margin-top: 0; }
 
 @media (min-width: 720px) {
   .grid.lessons { grid-template-columns: 1fr 1fr; }
+  .grid.pair { grid-template-columns: 1fr 1fr; }
+  .grid.roles { grid-template-columns: 1fr 1fr 1fr; }
   .footer-grid { grid-template-columns: auto 1fr auto; }
 }
 
 @media (max-width: 719px) {
+  html { scroll-padding-top: 0.75rem; }
   .site-header { position: static; }
   .header-bar { flex-direction: column; align-items: stretch; }
   .nav { justify-content: center; }
-  .specs, .specs tbody, .specs tr, .specs th, .specs td { display: block; }
-  .specs thead { display: none; }
-  .specs tr {
+  .specs, .specs tbody, .specs tr, .specs th, .specs td,
+  .sheet, .sheet tbody, .sheet tr, .sheet th, .sheet td { display: block; }
+  .specs thead, .sheet thead { display: none; }
+  .specs tr, .sheet tr {
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: 16px;
     margin-bottom: 0.8rem;
     padding: 0.35rem 0;
   }
-  .specs td { border: 0; }
-  .specs td::before {
+  .specs td, .sheet td { border: 0; }
+  .specs td::before, .sheet td::before {
     content: attr(data-label);
     display: block;
     color: var(--purple);

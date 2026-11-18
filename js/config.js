@@ -7,6 +7,7 @@ window.COURSE = {
     mode2: { id: "YZfLlv5Ei_Q", start: 2 },
     clinecli: { id: "Ov686-ELPjY", start: 2 },
     openclaw: { id: "AhdAUDCG5og", start: 2 },
-    codex: { id: "Vbz_slstTE0", start: 2 }
+    codex: { id: "Vbz_slstTE0", start: 2 },
+    mcp: { id: "nKLhe_Wgxn8" }
   }
 };

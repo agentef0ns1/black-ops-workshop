@@ -34,6 +34,7 @@
         <a href="mcps.html" data-i18n="nav.mcp">Fase 3</a>
         <a href="laboratorios.html" data-i18n="nav.lab">Fase 4</a>
         <a href="qa.html" data-i18n="nav.qa">Fase 5</a>
+        <a href="https://agentef0ns1.github.io/black-ops-audit-orchestrator/" data-i18n="nav.product" target="_blank" rel="noopener noreferrer">Producto</a>
       </nav>
     </div>
   </header>
@@ -41,6 +42,22 @@
     <div class="wrap">
       <p class="kicker" data-i18n="llm.kicker">Fase 1</p>
       <h1 data-i18n="llm.title">Instalación de LocalAI.</h1>
+      <figure class="flow">
+        <img src="assets/pieza-localai.png" data-i18n-alt="llm.where.alt" alt="La misma arquitectura, con la caja LocalAI marcada en rojo.">
+        <figcaption data-i18n="llm.where.caption">El recuadro rojo es lo que instala esta fase: LocalAI, debajo del agente.</figcaption>
+      </figure>
+      <h2 data-i18n="llm.role.title">Qué hace en la arquitectura</h2>
+      <p class="lede" data-i18n="llm.role.lede">LocalAI es el motor. Dentro corre el modelo, el LLM de la figura. El agente le envía la pregunta por la línea LLM y LocalAI le devuelve la respuesta. La consola, los MCP y los servidores quedan al otro lado del agente.</p>
+      <div class="grid pair">
+        <article class="card">
+          <h3 data-i18n="llm.role.model">El modelo</h3>
+          <p data-i18n="llm.role.model.body">La caja se llama Local LLM. En este portátil el script deja un modelo pequeño, en Q4, para que quepa en la gráfica de 4 GB. LocalAI lo publica en el puerto 8080.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="llm.role.neighbor">El agente</h3>
+          <p data-i18n="llm.role.neighbor.body">Es el vecino de esta caja. Cuando el agente necesita razonar, baja por la línea LLM. La respuesta sube y el agente sigue con la consola o con los MCP.</p>
+        </article>
+      </div>
       <h2 data-i18n="code.title">Instalación</h2>
       <p class="lede" data-i18n="llm.lede">Instalación del motor de LLMs LocalAI en la máquina local con Ubuntu. El script descarga una imagen Docker del software y un LLM pequeño, Qwen3.8-4B en Q4, para pruebas. También descarga el backend llama.cpp y lo configura para la gráfica de 4 GB de este portátil modesto.</p>
       <p class="note"><span data-i18n="llm.access">Al terminar queda accesible en local en</span> <a href="http://127.0.0.1:8080">http://127.0.0.1:8080</a>.</p>

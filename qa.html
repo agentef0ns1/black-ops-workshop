@@ -34,22 +34,56 @@
         <a href="mcps.html" data-i18n="nav.mcp">Fase 3</a>
         <a href="laboratorios.html" data-i18n="nav.lab">Fase 4</a>
         <a class="is-here" href="qa.html" data-i18n="nav.qa">Fase 5</a>
+        <a href="https://agentef0ns1.github.io/black-ops-audit-orchestrator/" data-i18n="nav.product" target="_blank" rel="noopener noreferrer">Producto</a>
       </nav>
     </div>
   </header>
   <main id="contenido">
     <div class="wrap">
       <p class="kicker" data-i18n="qa.kicker">Fase 5</p>
-      <h1 data-i18n="qa.title">QA de las métricas obtenidas.</h1>
-      <p class="lede" data-i18n="qa.lede">Revisión de si lo que salió de la ejecución tiene sentido. Todavía no hay métricas en la página: esta fase se abre cuando haya la primera ejecución medida.</p>
-      <div class="video" data-video="qa" data-i18n-title="video.soon">
-        <p class="note" data-video-empty data-i18n="video.soon">El vídeo de esta fase se añadirá aquí.</p>
+      <h1 data-i18n="qa.title">QA del laboratorio.</h1>
+      <p class="lede" data-i18n="qa.lede">La QA lee el workspace de una ejecución y lo compara con el oráculo del laboratorio. El oráculo es lab/expected_findings.json. Cada fila es un fallo plantado que un FIND-*.md de ese host tiene que dejar escrito.</p>
+
+      <h2 data-i18n="qa.how.title">Cómo se puntúa una fila</h2>
+      <p class="note" data-i18n="qa.how.body">El comparador lee */findings/FIND-*.md. Una fila queda detected cuando el hallazgo es de esa IP, ese puerto y ese tipo, y el texto trae el CVE o la evidencia si la fila los nombra. Si el hallazgo no está y la bitácora dice que la herramienta de esa fila no está en la allowlist, la fila queda blocked_by_allowlist. El resto es missing.</p>
+      <p class="note" data-i18n="qa.how.tail">No mira el tipo de ejecución. Mira los ficheros. Está escrito para el tipo 1, el recorrido del grafo. Un workspace de tipo 2 o de tipo 3 se puntúa con el mismo comando: cuentan los hallazgos que guardó el grafo y los que el modelo guardó con prueba.</p>
+
+      <h2 data-i18n="qa.cmd.title">El comando</h2>
+      <p class="note" data-i18n="qa.cmd.body">Desde la raíz del repositorio. El workspace es el base_path de la ejecución.</p>
+      <pre class="code"><code>PYTHONPATH=src python -m audit_orchestrator.core.lab_oracle &lt;WORKSPACE&gt;
+PYTHONPATH=src python -m audit_orchestrator.core.lab_oracle &lt;WORKSPACE&gt; --wave 1
+PYTHONPATH=src python -m audit_orchestrator.core.lab_oracle &lt;WORKSPACE&gt; --profile mail
+PYTHONPATH=src python -m audit_orchestrator.core.lab_oracle &lt;WORKSPACE&gt; --expected lab/expected_findings.json</code></pre>
+
+      <h2 data-i18n="qa.types.title">Los tres tipos de ejecución</h2>
+      <p class="lede" data-i18n="qa.types.body">El tipo elige quién lee la salida. Los límites max_servers, max_services y max_kali_jobs son los mismos en los tres. fast, balanced y deep son otro mando: eligen la profundidad del grafo y no sustituyen al tipo.</p>
+      <div class="grid roles">
+        <article class="card">
+          <h3 data-i18n="qa.type1.title">Tipo 1 · el grafo</h3>
+          <p data-i18n="qa.type1.body">execution_mode type_1_no_llm. Neo4j recorre cada puerto en Kali y termina. No hay llamada al modelo. Es la ejecución para la que está escrito el oráculo. En esta página el ejemplo usa audit_profile fast.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="qa.type2.title">Tipo 2 · revisión al cerrar el host</h3>
+          <p data-i18n="qa.type2.body">Hace el recorrido del tipo 1. Cuando terminan los puertos de un host, el modelo lee una vez cada fichero de enumeración. Un fichero largo va en ventanas. El modelo devuelve finding: no, o el markdown del informe. Un informe sin prueba no se guarda. Necesita llm_model. El ejemplo usa audit_profile deep.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="qa.type3.title">Tipo 3 · el modelo en cada servicio</h3>
+          <p data-i18n="qa.type3.body">Si un comando falla, el modelo devuelve un comando corregido y esa salida sustituye al fallo. Cuando terminan los grafos del puerto, puede lanzar hasta tres comandos nuevos, viendo cada salida, hasta responder command: none. Después corre la misma revisión de host que el tipo 2. Necesita llm_model. El ejemplo usa audit_profile balanced.</p>
+        </article>
       </div>
-      <h2 data-i18n="code.title">Instalación</h2>
-      <div class="actions">
-        <a class="btn" href="https://www.youtube.com/@xiquifonso" target="_blank" rel="noopener noreferrer">YouTube</a>
-      </div>
-      <pre class="code"><code data-i18n="code.pending">El script de esta fase se añadirá aquí.</code></pre>
+
+      <h2 data-i18n="qa.config.title">Resultados esperados configurables</h2>
+      <p class="note" data-i18n="qa.config.body">expected_findings.json es la lista. --expected apunta el comparador a otro fichero, así que el oráculo puede ser una copia que edites. Dos filtros deciden qué filas entran en la nota.</p>
+      <p class="note" data-i18n="qa.config.profile">Sin --profile, las filas que llevan profile se quedan fuera. Esas filas son los grupos que setup_lab.sh levanta aparte, más pending_lab. Un laboratorio solo con core no sale missing por el correo o por la IA. --profile mail puntúa solo ese grupo. El mismo nombre que pasaste a --only.</p>
+      <p class="note" data-i18n="qa.config.wave">Sin --wave se puntúan todas las filas que pasaron el filtro de profile. --wave N deja una oleada. La 1 es FTP, SSH, Telnet, SMTP, el listado, Redis, Mongo, Heartbleed, Shellshock y SambaCry. La 2 añade MySQL, PostgreSQL, DNS, SNMP y NFS. La 3 es DVWA, Juice Shop, crAPI y VAmPI. La 4 son los grupos nuevos. La 5 es el perfil ai. La 6 es pending_lab: direcciones de 203.0.113.0/24 para servicios que todavía no tienen contenedor. No entran en la nota por defecto.</p>
+
+      <h2 data-i18n="qa.priority.title">Obligatorio, secundario y a revisar</h2>
+      <p class="note" data-i18n="qa.priority.body">OBJETIVOS_QA.md no sustituye al JSON. Ahí cada servidor tiene varios objetivos. El obligatorio es el fallo plantado, o un hecho que la imagen enseña sin clave: con ese el servidor queda resuelto. El secundario suma calidad, y un informe puede cumplir la QA sin él. El marcado a revisar depende de la etiqueta que esté corriendo, y hay que confirmarlo en el contenedor antes de volverlo obligatorio.</p>
+      <p class="note" data-i18n="qa.priority.keys">Donde el fallo plantado es una clave, esa guía deja la clave fuera de la lista de contenido y anota lo que se puede confirmar sin usarla. SSH y Telnet son ese caso. La clave sigue en expected_findings.json, y el comparador sí espera ese hallazgo.</p>
+      <p class="note" data-i18n="qa.priority.out">Usar el fallo queda fuera de esta QA: un volcado de memoria de Heartbleed, los retos de Juice Shop, o las clases de DVWA, crAPI y VAmPI que piden sesión.</p>
+
+      <h2 data-i18n="qa.depth.title">La profundidad, aparte del tipo</h2>
+      <p class="note" data-i18n="qa.depth.body">audit_profile elige técnicas por nivel. fast se queda en el nivel 1 y una lista web corta. balanced llega al nivel 2 y una lista pequeña. deep llega al nivel 3 y una lista mediana. Para el modelo, fast permite un intento de verificación, balanced dos y deep seis, cada uno con 120 segundos. Las técnicas intrusivas se quedan fuera salvo que AUDIT_ALLOW_INTRUSIVE esté definido.</p>
     </div>
   </main>
   <footer id="contact">

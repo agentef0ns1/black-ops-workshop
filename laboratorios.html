@@ -34,6 +34,7 @@
         <a href="mcps.html" data-i18n="nav.mcp">Fase 3</a>
         <a class="is-here" href="laboratorios.html" data-i18n="nav.lab">Fase 4</a>
         <a href="qa.html" data-i18n="nav.qa">Fase 5</a>
+        <a href="https://agentef0ns1.github.io/black-ops-audit-orchestrator/" data-i18n="nav.product" target="_blank" rel="noopener noreferrer">Producto</a>
       </nav>
     </div>
   </header>
@@ -41,8 +42,664 @@
     <div class="wrap">
       <p class="kicker" data-i18n="lab.kicker">Fase 4</p>
       <h1 data-i18n="lab.title">Laboratorios y ejecuciones.</h1>
-      <p class="lede" data-i18n="lab.lede">Tres pasos en esta máquina de prueba: arranque del laboratorio, monitorización del entorno y una ejecución inicial de cada tipo.</p>
+      <p class="lede" data-i18n="lab.lede">El laboratorio son los servidores de la derecha de la arquitectura. Cada contenedor es una caja negra, con su IP. Kali los audita por la ipvlan. El portátil no publica sus puertos.</p>
 
+      <h2 data-i18n="lab.index.title">Ejecuciones</h2>
+      <p class="note" data-i18n="lab.index.body">Están al final de esta página. Desde aquí se llega a cada una. El tipo 1 y el tipo 2 llevan el vídeo.</p>
+      <div class="grid roles">
+        <a class="card" href="#ejecucion-1">
+          <p class="num">01</p>
+          <h3 data-i18n="lab.index.1">Tipo 1</h3>
+          <p data-i18n="lab.index.1.body">Vídeo del grafo, sin modelo.</p>
+        </a>
+        <a class="card" href="#ejecucion-2">
+          <p class="num">02</p>
+          <h3 data-i18n="lab.index.2">Tipo 2</h3>
+          <p data-i18n="lab.index.2.body">Vídeo de la revisión al cerrar el host.</p>
+        </a>
+        <a class="card" href="#ejecucion-3">
+          <p class="num">03</p>
+          <h3 data-i18n="lab.index.3">Tipo 3</h3>
+          <p data-i18n="lab.index.3.body">El modelo entra en cada servicio.</p>
+        </a>
+      </div>
+
+      <h2 data-i18n="lab.groups.title">Los grupos</h2>
+      <figure class="flow term">
+        <div class="shot">
+          <img src="assets/setup_lab.png" data-i18n-alt="lab.groups.alt" alt="Terminal de setup_lab.sh: los grupos normales marcados y los pesados sin marcar.">
+        </div>
+        <figcaption data-i18n="lab.groups.caption">Así arranca el script. Enter acepta lo marcado. Un número alterna. a deja fuera los pesados. t marca todos. q sale.</figcaption>
+      </figure>
+      <h2 data-i18n="lab.net.title">El laboratorio en marcha</h2>
+      <figure class="flow term">
+        <div class="shot">
+          <img src="assets/labs_execution.png" data-i18n-alt="lab.net.alt" alt="Inventario de cada servicio del laboratorio y, al lado, los contenedores Docker en marcha.">
+        </div>
+        <figcaption data-i18n="lab.net.caption">La ejecución completa. A la izquierda cada servicio y su dirección. A la derecha los contenedores. SNMP, NTP y TFTP son UDP.</figcaption>
+      </figure>
+      <h2 data-i18n="lab.catalog.title">Qué expone cada contenedor</h2>
+      <p class="note" data-i18n="lab.catalog.body">Una fila es un servicio a la escucha. La última columna es el fallo plantado: lo que una auditoría de este laboratorio puede confirmar. Primero van los grupos normales. Los pesados lo dicen en el título.</p>
+      <h3 id="grupo-core" data-i18n="lab.g.core">Núcleo</h3>
+      <p class="note" data-i18n="lab.g.core.body">Es el grupo que Enter deja marcado. Una IP por fallo: bases sin clave, ficheros abiertos, tres CVE antiguos y cuatro webs de práctica.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">mysql-empty-root</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.145:3306</td>
+              <td data-i18n-label="lab.col.svc">MySQL</td>
+              <td data-i18n="lab.x.core.1" data-i18n-label="lab.col.exposed">root sin clave</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">postgres-trust</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.146:5432</td>
+              <td data-i18n-label="lab.col.svc">PostgreSQL</td>
+              <td data-i18n="lab.x.core.2" data-i18n-label="lab.col.exposed">autenticación trust</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">dns-axfr</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.147:53</td>
+              <td data-i18n-label="lab.col.svc">DNS</td>
+              <td data-i18n="lab.x.core.3" data-i18n-label="lab.col.exposed">AXFR de la zona lab.local</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">snmp-public</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.148:161/udp</td>
+              <td data-i18n-label="lab.col.svc">SNMP</td>
+              <td data-i18n="lab.x.core.4" data-i18n-label="lab.col.exposed">comunidad public, solo lectura</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">nfs-world</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.149:2049</td>
+              <td data-i18n-label="lab.col.svc">NFS</td>
+              <td data-i18n="lab.x.core.5" data-i18n-label="lab.col.exposed">export /exports abierto a cualquiera</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">ftp-anon</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.150:21</td>
+              <td data-i18n-label="lab.col.svc">FTP</td>
+              <td data-i18n="lab.x.core.6" data-i18n-label="lab.col.exposed">anónimo, solo lectura</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">ssh-default</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.151:22</td>
+              <td data-i18n-label="lab.col.svc">SSH</td>
+              <td data-i18n="lab.x.core.7" data-i18n-label="lab.col.exposed">clave de laboratorio root/root</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">telnet-default</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.152:23</td>
+              <td data-i18n-label="lab.col.svc">Telnet</td>
+              <td data-i18n="lab.x.core.8" data-i18n-label="lab.col.exposed">clave de laboratorio admin/admin</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">smtp-relay</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.153:25</td>
+              <td data-i18n-label="lab.col.svc">SMTP</td>
+              <td data-i18n="lab.x.core.9" data-i18n-label="lab.col.exposed">open relay, banner ESMTP Postfix</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">web-listing</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.154:80</td>
+              <td data-i18n-label="lab.col.svc">HTTP</td>
+              <td data-i18n="lab.x.core.10" data-i18n-label="lab.col.exposed">Apache 2.4 con listado de directorio</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">redis-noauth</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.155:6379</td>
+              <td data-i18n-label="lab.col.svc">Redis</td>
+              <td data-i18n="lab.x.core.11" data-i18n-label="lab.col.exposed">acepta comandos sin clave</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">mongodb-noauth</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.156:27017</td>
+              <td data-i18n-label="lab.col.svc">MongoDB</td>
+              <td data-i18n="lab.x.core.12" data-i18n-label="lab.col.exposed">sin autenticación</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">cve-heartbleed</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.157:443</td>
+              <td data-i18n-label="lab.col.svc">TLS</td>
+              <td data-i18n="lab.x.core.13" data-i18n-label="lab.col.exposed">Heartbleed, CVE-2014-0160</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">cve-shellshock</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.158:80</td>
+              <td data-i18n-label="lab.col.svc">HTTP</td>
+              <td data-i18n="lab.x.core.14" data-i18n-label="lab.col.exposed">Shellshock en /victim.cgi, CVE-2014-6271</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">cve-sambacry</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.159:445</td>
+              <td data-i18n-label="lab.col.svc">SMB</td>
+              <td data-i18n="lab.x.core.15" data-i18n-label="lab.col.exposed">SambaCry, CVE-2017-7494</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">dvwa</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.160:80</td>
+              <td data-i18n-label="lab.col.svc">HTTP</td>
+              <td data-i18n="lab.x.core.16" data-i18n-label="lab.col.exposed">DVWA: la página y el formulario de login</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">juice-shop</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.161:3000</td>
+              <td data-i18n-label="lab.col.svc">HTTP</td>
+              <td data-i18n="lab.x.core.17" data-i18n-label="lab.col.exposed">Juice Shop identificado en el puerto 3000</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">crapi-web</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.162:80</td>
+              <td data-i18n-label="lab.col.svc">HTTP</td>
+              <td data-i18n="lab.x.core.18" data-i18n-label="lab.col.exposed">frontal de crAPI. El resto va por detrás</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">vampi</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.163:5000</td>
+              <td data-i18n-label="lab.col.svc">HTTP</td>
+              <td data-i18n="lab.x.core.19" data-i18n-label="lab.col.exposed">VAmPI con OpenAPI público</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-mail" data-i18n="lab.g.mail">Correo</h3>
+      <p class="note" data-i18n="lab.g.mail.body">Un solo contenedor, Dovecot, con el buzón en IMAP y en POP3.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">mail-default</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.164:143</td>
+              <td data-i18n-label="lab.col.svc">IMAP</td>
+              <td data-i18n="lab.x.mail.1" data-i18n-label="lab.col.exposed">admin/admin entra y ve INBOX</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">mail-default</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.164:110</td>
+              <td data-i18n-label="lab.col.svc">POP3</td>
+              <td data-i18n="lab.x.mail.2" data-i18n-label="lab.col.exposed">admin/admin entra y hay un mensaje</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-legacy" data-i18n="lab.g.legacy">Servicios r</h3>
+      <p class="note" data-i18n="lab.g.legacy.body">Un contenedor con los cuatro puertos antiguos: rexec, rlogin, rsh y kshell.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">legacy-r</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.165:512</td>
+              <td data-i18n-label="lab.col.svc">rexec</td>
+              <td data-i18n="lab.x.legacy.1" data-i18n-label="lab.col.exposed">anuncia rexecd 1.0</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">legacy-r</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.165:513</td>
+              <td data-i18n-label="lab.col.svc">rlogin</td>
+              <td data-i18n="lab.x.legacy.2" data-i18n-label="lab.col.exposed">anuncia rlogind 1.0</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">legacy-r</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.165:514</td>
+              <td data-i18n-label="lab.col.svc">rsh</td>
+              <td data-i18n="lab.x.legacy.3" data-i18n-label="lab.col.exposed">ejecuta help y devuelve GNU bash</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">legacy-r</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.165:544</td>
+              <td data-i18n-label="lab.col.svc">kshell</td>
+              <td data-i18n="lab.x.legacy.4" data-i18n-label="lab.col.exposed">el puerto 544 hace lo mismo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-printer" data-i18n="lab.g.printer">Impresión</h3>
+      <p class="note" data-i18n="lab.g.printer.body">La cola LPD y el puerto de impresión PJL en la misma IP.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">printer-lab</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.166:515</td>
+              <td data-i18n-label="lab.col.svc">LPD</td>
+              <td data-i18n="lab.x.printer.1" data-i18n-label="lab.col.exposed">la cola lp responde el estado</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">printer-lab</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.166:9100</td>
+              <td data-i18n-label="lab.col.svc">PJL</td>
+              <td data-i18n="lab.x.printer.2" data-i18n-label="lab.col.exposed">devuelve el modelo LaserJet 4050</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-java" data-i18n="lab.g.java">Java</h3>
+      <p class="note" data-i18n="lab.g.java.body">Tomcat con el conector AJP, el registro JMX y el depurador JDWP.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">java-tomcat</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.167:8009</td>
+              <td data-i18n-label="lab.col.svc">AJP</td>
+              <td data-i18n="lab.x.java.1" data-i18n-label="lab.col.exposed">conector AJP sin secreto</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">java-tomcat</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.167:1099</td>
+              <td data-i18n-label="lab.col.svc">JMX</td>
+              <td data-i18n="lab.x.java.2" data-i18n-label="lab.col.exposed">registro RMI sin autenticación</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">java-tomcat</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.167:5005</td>
+              <td data-i18n-label="lab.col.svc">JDWP</td>
+              <td data-i18n="lab.x.java.3" data-i18n-label="lab.col.exposed">el depurador contesta el handshake</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-messaging" data-i18n="lab.g.messaging">Mensajería</h3>
+      <p class="note" data-i18n="lab.g.messaging.body">Dos brokers. RabbitMQ en .169 y Mosquitto en .170.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">amqp-guest</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.169:5672</td>
+              <td data-i18n-label="lab.col.svc">AMQP</td>
+              <td data-i18n="lab.x.messaging.1" data-i18n-label="lab.col.exposed">RabbitMQ acepta guest/guest</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">mqtt-anon</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.170:1883</td>
+              <td data-i18n-label="lab.col.svc">MQTT</td>
+              <td data-i18n="lab.x.messaging.2" data-i18n-label="lab.col.exposed">Mosquitto deja leer $SYS sin clave</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-registry" data-i18n="lab.g.registry">Registro de imágenes</h3>
+      <p class="note" data-i18n="lab.g.registry.body">Un registry Docker que enseña el catálogo sin pedir clave.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">registry-open</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.172:5000</td>
+              <td data-i18n-label="lab.col.svc">Registry</td>
+              <td data-i18n="lab.x.registry.1" data-i18n-label="lab.col.exposed">el catálogo lista lab-image sin clave</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-monitoring" data-i18n="lab.g.monitoring">Monitorización</h3>
+      <p class="note" data-i18n="lab.g.monitoring.body">NRPE, NSCA y el agente de Zabbix comparten la IP .173.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">monitoring-agents</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.173:5666</td>
+              <td data-i18n-label="lab.col.svc">NRPE</td>
+              <td data-i18n="lab.x.monitoring.1" data-i18n-label="lab.col.exposed">check_load responde</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">monitoring-agents</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.173:5667</td>
+              <td data-i18n-label="lab.col.svc">NSCA</td>
+              <td data-i18n="lab.x.monitoring.2" data-i18n-label="lab.col.exposed">Nagios NSCA a la escucha</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">monitoring-agents</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.173:10050</td>
+              <td data-i18n-label="lab.col.svc">Zabbix</td>
+              <td data-i18n="lab.x.monitoring.3" data-i18n-label="lab.col.exposed">system.run devuelve el usuario</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-data" data-i18n="lab.g.data">Datos ligeros</h3>
+      <p class="note" data-i18n="lab.g.data.body">Memcached en .174 y CouchDB en .176. Elasticsearch ocupa la IP de en medio y va en su propio grupo.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">memcached-open</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.174:11211</td>
+              <td data-i18n-label="lab.col.svc">Memcached</td>
+              <td data-i18n="lab.x.data.1" data-i18n-label="lab.col.exposed">stats sin clave</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">couchdb-open</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.176:5984</td>
+              <td data-i18n-label="lab.col.svc">CouchDB</td>
+              <td data-i18n="lab.x.data.2" data-i18n-label="lab.col.exposed">lista labdb sin clave</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-storage" data-i18n="lab.g.storage">Almacenamiento</h3>
+      <p class="note" data-i18n="lab.g.storage.body">rsync, TFTP, iSCSI y NDMP. TFTP es UDP: un barrido solo TCP no lo ve.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">rsync-open</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.179:873</td>
+              <td data-i18n-label="lab.col.svc">rsync</td>
+              <td data-i18n="lab.x.storage.1" data-i18n-label="lab.col.exposed">lista el módulo lab-module</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">tftp-open</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.180:69/udp</td>
+              <td data-i18n-label="lab.col.svc">TFTP</td>
+              <td data-i18n="lab.x.storage.2" data-i18n-label="lab.col.exposed">entrega startup-config</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">iscsi-open</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.181:3260</td>
+              <td data-i18n-label="lab.col.svc">iSCSI</td>
+              <td data-i18n="lab.x.storage.3" data-i18n-label="lab.col.exposed">responde el IQN sin CHAP</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">ndmp-lab</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.183:10000</td>
+              <td data-i18n-label="lab.col.svc">NDMP</td>
+              <td data-i18n="lab.x.storage.4" data-i18n-label="lab.col.exposed">describe el volumen lab-volume</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-net" data-i18n="lab.g.net">Red</h3>
+      <p class="note" data-i18n="lab.g.net.body">NTP, ident, SIP, VNC, un servicio de rendimiento y un puerto de texto que el catálogo no tiene mapeado. NTP es UDP.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">ntp-open</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.184:123/udp</td>
+              <td data-i18n-label="lab.col.svc">NTP</td>
+              <td data-i18n="lab.x.net.1" data-i18n-label="lab.col.exposed">responde rv y un stratum</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">ident-open</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.185:113</td>
+              <td data-i18n-label="lab.col.svc">ident</td>
+              <td data-i18n="lab.x.net.2" data-i18n-label="lab.col.exposed">devuelve el usuario labuser</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">sip-open</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.186:5060</td>
+              <td data-i18n-label="lab.col.svc">SIP</td>
+              <td data-i18n="lab.x.net.3" data-i18n-label="lab.col.exposed">contesta OPTIONS</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">vnc-none</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.187:5900</td>
+              <td data-i18n-label="lab.col.svc">VNC</td>
+              <td data-i18n="lab.x.net.4" data-i18n-label="lab.col.exposed">TigerVNC sin autenticación</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">perfd-lab</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.188:5227</td>
+              <td data-i18n-label="lab.col.svc">PerfD</td>
+              <td data-i18n="lab.x.net.5" data-i18n-label="lab.col.exposed">contesta los verbos de lectura</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">unknown-text</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.189:2323</td>
+              <td data-i18n-label="lab.col.svc">texto</td>
+              <td data-i18n="lab.x.net.6" data-i18n-label="lab.col.exposed">servicio no mapeado: responde uname y whoami</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-windows" data-i18n="lab.g.windows">Escritorio remoto</h3>
+      <p class="note" data-i18n="lab.g.windows.body">xrdp y WinRM en la última IP del rango, .190.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">windows-remote</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.190:3389</td>
+              <td data-i18n-label="lab.col.svc">RDP</td>
+              <td data-i18n="lab.x.windows.1" data-i18n-label="lab.col.exposed">xrdp negocia y anuncia el equipo</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">windows-remote</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.190:5985</td>
+              <td data-i18n-label="lab.col.svc">WinRM</td>
+              <td data-i18n="lab.x.windows.2" data-i18n-label="lab.col.exposed">/wsman devuelve Identify</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-directory" data-i18n="lab.g.directory">Directorio · pesado</h3>
+      <p class="note" data-i18n="lab.g.directory.body">Samba AD. Sale desmarcado. LDAP anónimo y el reino Kerberos DOMAIN.LOCAL.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">directory-ad</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.168:389</td>
+              <td data-i18n-label="lab.col.svc">LDAP</td>
+              <td data-i18n="lab.x.directory.1" data-i18n-label="lab.col.exposed">bind anónimo sobre DC=domain,DC=local</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">directory-ad</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.168:88</td>
+              <td data-i18n-label="lab.col.svc">Kerberos</td>
+              <td data-i18n="lab.x.directory.2" data-i18n-label="lab.col.exposed">el reino anunciado es DOMAIN.LOCAL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-elastic" data-i18n="lab.g.elastic">Elasticsearch · pesado</h3>
+      <p class="note" data-i18n="lab.g.elastic.body">Un nodo sin seguridad, en .175. El host necesita vm.max_map_count alto. El script lo recuerda al levantarlo.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">elastic-open</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.175:9200</td>
+              <td data-i18n-label="lab.col.svc">Elasticsearch</td>
+              <td data-i18n="lab.x.elastic.1" data-i18n-label="lab.col.exposed">el índice lab-index se lee sin clave</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-data-heavy" data-i18n="lab.g.data-heavy">Datos pesados</h3>
+      <p class="note" data-i18n="lab.g.data-heavy.body">MSSQL y Oracle XE. Salen desmarcados porque tardan en arrancar.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">mssql-sa</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.177:1433</td>
+              <td data-i18n-label="lab.col.svc">MSSQL</td>
+              <td data-i18n="lab.x.data-heavy.1" data-i18n-label="lab.col.exposed">acepta sa/sa tras el arranque</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">oracle-xe</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.178:1521</td>
+              <td data-i18n-label="lab.col.svc">Oracle</td>
+              <td data-i18n="lab.x.data-heavy.2" data-i18n-label="lab.col.exposed">anuncia la versión TNS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-hadoop" data-i18n="lab.g.hadoop">Hadoop · pesado</h3>
+      <p class="note" data-i18n="lab.g.hadoop.body">El NameNode publica WebHDFS anónimo en .182.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">hadoop-namenode</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.182:9870</td>
+              <td data-i18n-label="lab.col.svc">WebHDFS</td>
+              <td data-i18n="lab.x.hadoop.1" data-i18n-label="lab.col.exposed">LISTSTATUS anónimo</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-docker" data-i18n="lab.g.docker">API Docker · pesado</h3>
+      <p class="note" data-i18n="lab.g.docker.body">La API del demonio en claro, en el puerto 2375, sin TLS.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">docker-api</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.171:2375</td>
+              <td data-i18n-label="lab.col.svc">Docker</td>
+              <td data-i18n="lab.x.docker.1" data-i18n-label="lab.col.exposed">/version responde sin TLS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h3 id="grupo-ai" data-i18n="lab.g.ai">IA · pesado</h3>
+      <p class="note" data-i18n="lab.g.ai.body">Tres cajas fuera del bloque .145–.190: un modelo pequeño, un MCP y un agente A2A. Las tres atienden sin clave.</p>
+      <div class="table-wrap">
+        <table class="sheet">
+          <thead><tr>
+            <th data-i18n="lab.col.box">Contenedor</th>
+            <th data-i18n="lab.col.addr">Dirección</th>
+            <th data-i18n="lab.col.svc">Servicio</th>
+            <th data-i18n="lab.col.exposed">Qué queda expuesto</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td data-i18n-label="lab.col.box">llm-smollm</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.141:8080</td>
+              <td data-i18n-label="lab.col.svc">HTTP</td>
+              <td data-i18n="lab.x.ai.1" data-i18n-label="lab.col.exposed">llama.cpp lista smollm2-135m-lab sin clave</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">mcp-lab</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.142:8000</td>
+              <td data-i18n-label="lab.col.svc">HTTP</td>
+              <td data-i18n="lab.x.ai.2" data-i18n-label="lab.col.exposed">MCP: tools/list sin clave</td>
+            </tr>
+            <tr>
+              <td data-i18n-label="lab.col.box">a2a-lab</td>
+              <td data-i18n-label="lab.col.addr">192.168.1.143:9999</td>
+              <td data-i18n-label="lab.col.svc">HTTP</td>
+              <td data-i18n="lab.x.ai.3" data-i18n-label="lab.col.exposed">tarjeta A2A con la skill lab-inventory</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 data-i18n="lab.internal.title">Contenedores que no son un servidor de la LAN</h2>
+      <p class="note" data-i18n="lab.internal.body">Arrancan con el grupo core porque crAPI los necesita. No salen en el inventario de IPs. Desde la red del laboratorio no tienen dirección.</p>
+      <div class="grid pair">
+        <article class="card"><p data-i18n="lab.internal.1">crapi-postgres y crapi-mongo: las bases que hay detrás del frontal.</p></article>
+        <article class="card"><p data-i18n="lab.internal.2">crapi-mailhog: el correo interno. Solo cuenta si el frontal apunta a él.</p></article>
+        <article class="card"><p data-i18n="lab.internal.3">crapi-identity, crapi-community y crapi-workshop: se juzgan por las rutas de .162.</p></article>
+        <article class="card"><p data-i18n="lab.internal.4">El gateway, api.mypremiumdealership.com: se queda en crapi_internal.</p></article>
+      </div>
       <h2 data-i18n="lab.setup">Configurar</h2>
       <p class="note" data-i18n="lab.setup.body">Arranque de los laboratorios. El script setup_lab.sh está en el repositorio de black-ops, en lab/setup_lab.sh. Pregunta qué grupos levantar, asegura la red ipvlan y arranca solo esos perfiles.</p>
       <div class="actions">
@@ -59,8 +716,10 @@
       <pre class="code"><code data-script="scripts/monitor.sh"></code></pre>
 
       <h2 data-i18n="lab.run">Ejecución inicial</h2>
+      <p class="note" data-i18n="lab.run.bridge">Cada llamada deja un workspace, con un FIND-*.md por hallazgo guardado. La fase 5 compara ese workspace con el oráculo.</p>
+      <p class="note"><a href="qa.html" data-i18n="lab.run.link">Abrir la QA</a></p>
 
-      <h3 data-i18n="lab.type1">Tipo 1</h3>
+      <h3 id="ejecucion-1" data-i18n="lab.type1">Tipo 1</h3>
       <p class="note" data-i18n="lab.type1.body">Recorre el grafo de cada puerto en Kali. No llama al modelo.</p>
       <pre class="code"><code>audit_v2_start_and_run(
   base_path="&lt;WORKSPACE&gt;",
@@ -77,7 +736,7 @@
         <p class="note" data-video-empty data-i18n="video.soon">El vídeo de esta fase se añadirá aquí.</p>
       </div>
 
-      <h3 data-i18n="lab.type2">Tipo 2</h3>
+      <h3 id="ejecucion-2" data-i18n="lab.type2">Tipo 2</h3>
       <p class="note" data-i18n="lab.type2.body">Hace el tipo 1. Cuando terminan los puertos de un host, el modelo revisa ese host.</p>
       <pre class="code"><code>audit_v2_start_and_run(
   base_path="&lt;WORKSPACE&gt;",
@@ -95,7 +754,7 @@
         <p class="note" data-video-empty data-i18n="video.soon">El vídeo de esta fase se añadirá aquí.</p>
       </div>
 
-      <h3 data-i18n="lab.type3">Tipo 3</h3>
+      <h3 id="ejecucion-3" data-i18n="lab.type3">Tipo 3</h3>
       <p class="note" data-i18n="lab.type3.body">Hace el tipo 1. Tras cada servicio el modelo puede devolver un comando. Al cerrar el host hace la misma revisión que el tipo 2.</p>
       <pre class="code"><code>audit_v2_start_and_run(
   base_path="&lt;WORKSPACE&gt;",
@@ -108,10 +767,6 @@
   max_kali_jobs=8,
   llm_model="&lt;MODEL_ID&gt;"
 )</code></pre>
-      <p class="note" data-i18n="lab.video.soon">La URL de este vídeo aún no está disponible.</p>
-      <div class="video" data-video="mode3" data-i18n-title="video.mode3">
-        <p class="note" data-video-empty data-i18n="video.soon">El vídeo de esta fase se añadirá aquí.</p>
-      </div>
     </div>
   </main>
   <footer id="contact">

@@ -34,6 +34,7 @@
         <a href="mcps.html" data-i18n="nav.mcp">Fase 3</a>
         <a href="laboratorios.html" data-i18n="nav.lab">Fase 4</a>
         <a href="qa.html" data-i18n="nav.qa">Fase 5</a>
+        <a href="https://agentef0ns1.github.io/black-ops-audit-orchestrator/" data-i18n="nav.product" target="_blank" rel="noopener noreferrer">Producto</a>
       </nav>
     </div>
   </header>
@@ -42,6 +43,29 @@
       <p class="kicker" data-i18n="home.kicker">Tu máquina de prueba</p>
       <h1 data-i18n="home.title">Esto funciona en un portátil modesto.</h1>
       <p class="lede" data-i18n="home.lede">No hace falta un servidor. Montado en esta máquina de prueba: una gráfica de 4 GB y 15 GB de RAM. Si la máquina se parece, el workshop va. El sistema es Ubuntu 26.04.1 LTS.</p>
+      <h2 data-i18n="home.arch.title">Así está montado el sistema.</h2>
+      <p class="lede" data-i18n="home.arch.lede">El gif es el camino completo de una auditoría. El workshop instala tres piezas de esa figura. La consola eres tú. Los servidores salen en los laboratorios.</p>
+      <figure class="flow">
+        <img src="assets/arquitectura.gif" data-i18n-alt="home.arch.alt" alt="Diagrama animado del flujo: usuario, agente, modelo local, orquestador, Kali y tres servidores.">
+        <figcaption data-i18n="home.arch.caption">Flujo continuo. Cada punto es trabajo que pasa de una caja a la siguiente.</figcaption>
+      </figure>
+      <div class="grid roles">
+        <a class="card" href="llm.html">
+          <p class="num">01</p>
+          <h3 data-i18n="home.role.llm">LocalAI</h3>
+          <p data-i18n="home.role.llm.body">La caja de abajo. Ahí vive el modelo. Habla con el agente por la línea LLM.</p>
+        </a>
+        <a class="card" href="agente.html">
+          <p class="num">02</p>
+          <h3 data-i18n="home.role.agent">Agente</h3>
+          <p data-i18n="home.role.agent.body">La caja del centro. Habla contigo, con el modelo y con los MCP.</p>
+        </a>
+        <a class="card" href="mcps.html">
+          <p class="num">03</p>
+          <h3 data-i18n="home.role.mcp">MCPs</h3>
+          <p data-i18n="home.role.mcp.body">Las dos cajas de la derecha. El orquestador guarda la auditoría. Kali llega a los servidores.</p>
+        </a>
+      </div>
       <h2 data-i18n="home.table">Hardware del portátil modesto</h2>
       <div class="table-wrap">
         <table class="specs">
@@ -100,7 +124,7 @@
         <a class="card" href="qa.html">
           <p class="num">05</p>
           <h3 data-i18n="card.qa">Fase 5 · QA</h3>
-          <p data-i18n="card.qa.body">Revisión de las métricas de la ejecución. Aún no hay nada colgado.</p>
+          <p data-i18n="card.qa.body">El oráculo del laboratorio: tipos de ejecución y el fallo que se espera de cada grupo.</p>
         </a>
       </div>
     </div>

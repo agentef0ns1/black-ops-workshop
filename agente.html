@@ -34,6 +34,7 @@
         <a href="mcps.html" data-i18n="nav.mcp">Fase 3</a>
         <a href="laboratorios.html" data-i18n="nav.lab">Fase 4</a>
         <a href="qa.html" data-i18n="nav.qa">Fase 5</a>
+        <a href="https://agentef0ns1.github.io/black-ops-audit-orchestrator/" data-i18n="nav.product" target="_blank" rel="noopener noreferrer">Producto</a>
       </nav>
     </div>
   </header>
@@ -41,7 +42,27 @@
     <div class="wrap">
       <p class="kicker" data-i18n="agent.kicker">Fase 2</p>
       <h1 data-i18n="agent.title">Instalación de los agentes.</h1>
-      <p class="lede" data-i18n="agent.lede">Fase de instalación del agente. El objetivo es un agente conectado al LLM, con ejecución en el sistema operativo, interacción con los MCPs, y lectura y escritura del sistema de ficheros.</p>
+      <figure class="flow">
+        <img src="assets/pieza-agente.png" data-i18n-alt="agent.where.alt" alt="La misma arquitectura, con la caja del agente marcada en rojo.">
+        <figcaption data-i18n="agent.where.caption">El recuadro rojo es lo que instala esta fase: el agente, en el centro.</figcaption>
+      </figure>
+      <h2 data-i18n="agent.role.title">Qué hace en la arquitectura</h2>
+      <p class="lede" data-i18n="agent.role.lede">El agente está en medio y tiene tres conversaciones. Las tres salen dibujadas en la figura: hacia la consola, hacia el modelo y hacia los MCP.</p>
+      <div class="grid roles">
+        <article class="card">
+          <h3 data-i18n="agent.role.user">Contigo</h3>
+          <p data-i18n="agent.role.user.body">Por la izquierda entran el inventario y la consola. Escribes el encargo, lees la salida de la auditoría y el agente lee y escribe ficheros en tu máquina.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="agent.role.llm">Con el LLM</h3>
+          <p data-i18n="agent.role.llm.body">Por abajo sale la línea LLM hasta LocalAI. El agente pregunta y LocalAI contesta con el modelo. El modelo vive en LocalAI. El agente lo llama.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="agent.role.mcp">Con los MCP</h3>
+          <p data-i18n="agent.role.mcp.body">Por la derecha sale la línea MCP hasta el orquestador. El agente pide el estado y el siguiente paso. El camino hasta los servidores lo recorren los MCP.</p>
+        </article>
+      </div>
+      <p class="lede" data-i18n="agent.lede">El objetivo de la instalación es un agente conectado al LLM, con ejecución en el sistema operativo, interacción con los MCPs, y lectura y escritura del sistema de ficheros.</p>
       <p class="note" data-i18n="agent.options">El producto admite varias opciones. Unas cuantas ya están probadas y quedan aquí como ejemplo.</p>
       <p class="note" data-i18n="agent.from">El instalador está en cli/install del repositorio. Se lanza desde esa carpeta. LOCALAI_URL es la de esta máquina, http://127.0.0.1:8080.</p>
 

@@ -34,6 +34,7 @@
         <a class="is-here" href="mcps.html" data-i18n="nav.mcp">Fase 3</a>
         <a href="laboratorios.html" data-i18n="nav.lab">Fase 4</a>
         <a href="qa.html" data-i18n="nav.qa">Fase 5</a>
+        <a href="https://agentef0ns1.github.io/black-ops-audit-orchestrator/" data-i18n="nav.product" target="_blank" rel="noopener noreferrer">Producto</a>
       </nav>
     </div>
   </header>
@@ -41,6 +42,27 @@
     <div class="wrap">
       <p class="kicker" data-i18n="mcp.kicker">Fase 3</p>
       <h1 data-i18n="mcp.title">Instalación de los MCPs.</h1>
+      <figure class="flow">
+        <img src="assets/pieza-mcps.png" data-i18n-alt="mcp.where.alt" alt="La misma arquitectura, con el orquestador y Kali marcados en rojo.">
+        <figcaption data-i18n="mcp.where.caption">Los recuadros rojos son lo que instala esta fase: el orquestador y Kali.</figcaption>
+      </figure>
+      <h2 data-i18n="mcp.role.title">Qué hacen en la arquitectura</h2>
+      <p class="lede" data-i18n="mcp.role.lede">Estas dos cajas hablan con el agente y con el sistema que se audita. Entre ellas hay una cola: el orquestador deja el trabajo y Kali lo ejecuta.</p>
+      <div class="grid pair">
+        <article class="card">
+          <h3 data-i18n="mcp.orch">Orchestrator</h3>
+          <p data-i18n="mcp.orch.who">El agente habla con esta caja. Le pregunta cómo va la auditoría y cuál es el siguiente paso. Está escrita en Python y guarda el estado.</p>
+          <p data-i18n="mcp.orch.neo">Neo4j guarda el conocimiento: el catálogo de comprobaciones, en grafo. De ahí sale qué toca mirar en cada servicio, y en qué orden.</p>
+          <p data-i18n="mcp.orch.sql">SQLite guarda el estado de la auditoría: qué host y qué puerto van, qué ya terminó y qué sigue pendiente.</p>
+          <p data-i18n="mcp.orch.queue">Hacia Kali sale una cola, la línea de puntos del gif. El orquestador deja ahí los comandos. Kali es quien los lanza.</p>
+        </article>
+        <article class="card">
+          <h3 data-i18n="mcp.kali">Atacante</h3>
+          <p data-i18n="mcp.kali.who">Kali es la caja MCP-attacker. Corre en Docker, habla HTTP y está hecha en Python. Coge la cola y ejecuta en segundo plano: un comando largo deja sitio al siguiente.</p>
+          <p data-i18n="mcp.kali.target">De Kali salen las líneas security-audit hacia los servidores, las tres cajas de la derecha. Esas cajas son el sistema a auditar.</p>
+          <p data-i18n="mcp.kali.net">Internet está dibujado arriba. El camino de la auditoría en la figura es el que une Kali con esos servidores.</p>
+        </article>
+      </div>
       <p class="lede" data-i18n="mcp.lede">El producto es MVP Audit Orchestrator V2. Esta instalación añade dos MCP al agente.</p>
       <p class="note"><a href="https://github.com/agentef0ns1/MVP-audit-orchetrator-v2" target="_blank" rel="noopener noreferrer">https://github.com/agentef0ns1/MVP-audit-orchetrator-v2.git</a></p>
 
@@ -55,12 +77,11 @@ cd MVP-audit-orchetrator-v2</code></pre>
         <a class="btn solid" data-i18n="mcp.readme" href="https://github.com/agentef0ns1/MVP-audit-orchetrator-v2/blob/main/README.md" target="_blank" rel="noopener noreferrer">README</a>
       </div>
       <pre class="code"><code>./setup.sh</code></pre>
+      <p class="note"><a href="https://youtu.be/nKLhe_Wgxn8" target="_blank" rel="noopener noreferrer">https://youtu.be/nKLhe_Wgxn8</a></p>
+      <div class="video" data-video="mcp" data-i18n-title="video.mcp">
+        <p class="note" data-video-empty data-i18n="video.soon">El vídeo de esta fase se añadirá aquí.</p>
+      </div>
 
-      <h2 data-i18n="mcp.pair">Los dos MCP</h2>
-      <h3 data-i18n="mcp.orch">Orchestrator</h3>
-      <p class="note" data-i18n="mcp.orch.body">Cuenta con dos bases de datos: una relacional, SQLite, y otra no relacional, Neo4j.</p>
-      <h3 data-i18n="mcp.kali">Atacante</h3>
-      <p class="note" data-i18n="mcp.kali.body">Imagen Docker de Kali, con una cola de ejecución. Los comandos corren en segundo plano.</p>
     </div>
   </main>
   <footer id="contact">
